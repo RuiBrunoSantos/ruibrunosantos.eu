@@ -13,7 +13,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden; /* reforço global contra scroll lateral */
+  overflow-x: hidden;
 }
 
 body {
@@ -22,9 +22,10 @@ body {
   color: #1a1a1a;
   line-height: 1.8;
   overflow-x: hidden;
-  padding-top: 80px; /* espaço para o nav fixo não tapar o conteúdo */
+  padding-top: 80px; /* espaço para nav fixo */
 }
 
+/* Nav */
 nav {
   position: fixed;
   top: 0;
@@ -47,7 +48,7 @@ nav a {
   font-size: 1.1rem;
   font-weight: 500;
   transition: color 0.3s ease;
-  white-space: nowrap; /* evita quebra de linha indesejada */
+  white-space: nowrap;
 }
 
 nav a:hover {
@@ -68,7 +69,7 @@ nav a:hover {
 
 .hero img {
   width: 80%;
-  max-width: 500px; /* limite máximo em desktop */
+  max-width: 500px;
   height: auto;
   object-fit: contain;
   border-radius: 12px;
@@ -86,6 +87,8 @@ nav a:hover {
   margin: 2rem 0 1rem;
   color: #0d0d0d;
   font-weight: 700;
+  max-width: 90%;
+  line-height: 1.15;
 }
 
 .hero p {
@@ -137,7 +140,7 @@ h2 {
   border-bottom-color: #004080;
 }
 
-/* Listas e projetos */
+/* Publicações e Projetos */
 .publications-list {
   list-style: none;
   padding: 0;
@@ -191,7 +194,7 @@ footer {
 /* RESPONSIVE - Mobile-first */
 @media (max-width: 768px) {
   body {
-    padding-top: 70px; /* ajusta para nav menor */
+    padding-top: 70px;
   }
 
   nav {
@@ -214,12 +217,16 @@ footer {
   }
 
   .hero h1 {
-    font-size: 2.8rem;
+    font-size: 2.6rem;           /* menor para não partir tanto */
+    line-height: 1.15;
+    margin: 1.5rem 0 1rem;
+    padding: 0 5%;
+    max-width: 95%;
   }
 
   .hero p {
-    font-size: 1.15rem;
-    padding: 0 2%;
+    font-size: 1.1rem;
+    padding: 0 4%;
   }
 
   section {
@@ -233,6 +240,29 @@ footer {
   .content {
     font-size: 1.1rem;
   }
+
+  /* Contact - compactar */
+  #contato h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  #contato .content p {
+    font-size: 1.05rem;
+    margin: 1rem 0;
+    gap: 10px;
+    padding: 0 5%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  #contato .content i {
+    font-size: 1.25rem;
+  }
+
+  #contato .content strong {
+    min-width: 130px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -245,16 +275,18 @@ footer {
   }
 
   nav a {
-    margin: 0 0.7rem;
+    margin: 0 0.6rem;
     font-size: 0.95rem;
   }
 
   .hero h1 {
-    font-size: 2.4rem;
+    font-size: 2.2rem;           /* ainda menor em telemóveis pequenos */
+    line-height: 1.2;
+    margin: 1.2rem 0 0.8rem;
   }
 
   .hero p {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 
   .hero img {
@@ -277,6 +309,22 @@ footer {
 
   .project-item {
     padding: 1.2rem;
+  }
+
+  /* Contact ainda mais compacto */
+  #contato .content p {
+    font-size: 1rem;
+    margin: 0.9rem 0;
+    gap: 8px;
+    padding: 0 3%;
+  }
+
+  #contato .content i {
+    font-size: 1.2rem;
+  }
+
+  #contato .content strong {
+    min-width: 110px;
   }
 }
   </style>
