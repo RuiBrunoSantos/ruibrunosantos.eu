@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rui Bruno Santos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Georgia', serif; /* elegante, acadêmico */
+      background: #ffffff;
+      color: #1a1a1a; /* texto escuro legível em branco */
+      line-height: 1.8;
+    }
+
+    /* Nav fixo – fundo branco com blur leve */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); /* suporte Safari */
+      padding: 1.4rem 5%;
+      z-index: 1000;
+      text-align: center;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    }
+    nav a {
+      color: #333333;
+      text-decoration: none;
+      margin: 0 1.8rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #0066cc; /* azul acadêmico elegante */
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: #ffffff;
+      position: relative;
+      padding: 0 5%;
+    }
+    .hero img {
+      max-width: 35%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      transition: transform 0.7s ease, box-shadow 0.7s ease;
+    }
+    .hero:hover img {
+      transform: scale(1.04);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+    }
+    .hero h1 {
+      font-size: 4.2rem;
+      margin: 2.5rem 0 1.2rem;
+      color: #0d0d0d;
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.4rem;
+      max-width: 800px;
+      color: #444444;
+      opacity: 0.95;
+    }
+
+    /* Seções */
+    section {
+      padding: 14vh 8%;
+      min-height: 80vh;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.2s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      font-size: 3.2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      color: #111111;
+      font-weight: 600;
+    }
+    .content {
+      max-width: 960px;
+      margin: 0 auto;
+      font-size: 1.25rem;
+      color: #333333;
+    }
+    .content a {
+      color: #0066cc;
+      text-decoration: none;
+      border-bottom: 1px solid #0066cc40;
+      transition: all 0.3s;
+    }
+    .content a:hover {
+      color: #004080;
+      border-bottom-color: #004080;
+    }
+
+    footer {
+      text-align: center;
+      padding: 5rem 8%;
+      background: #f8f9fa;
+      font-size: 1rem;
+      color: #666666;
+      border-top: 1px solid #eee;
+    }
+
+    .publications-list {
+      list-style: none;
+      padding: 0;
+      margin: 2.5rem 0;
+    }
+    
+    .publications-list li {
+      margin-bottom: 2rem;
+      padding-left: 1.8rem;
+      position: relative;
+      font-size: 1.18rem;
+      line-height: 1.65;
+      color: #333;
+    }
+    
+    .publications-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #0066cc; /* azul acadêmico */
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+    
+    .publications-list em {
+      font-style: italic;
+    }
+    .project-list {
+  margin: 2rem 0;
+    }
+    
+    .project-item {
+      background: #f8f9fa;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    
+    .project-item:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transform: translateY(-4px);
+    }
+    
+    .project-item h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+      color: #111;
+    }
+    
+    .version {
+      font-size: 0.95rem;
+      color: #0066cc;
+      font-weight: 500;
+      background: #e6f0ff;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-left: 0.8rem;
+    }
+    
+    .project-item p {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    
+    .project-item a {
+      color: #0066cc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .project-item a:hover {
+      text-decoration: underline;
+      color: #004080;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#sobre">Research</a>
+    <a href="#projetos">Code</a>
+    <a href="#contato">Contact</a>
+  </nav>
+
+  <section id="home" class="hero">
+    <img src="https://raw.githubusercontent.com/RuiBrunoSantos/ruibrunosantos.eu/main/rbs_web.jpg" alt="Rui Bruno Santos">
+    <h1>Rui Bruno Santos</h1>
+    <p>Rui Bruno Santos is a PhD candidate in Communication Sciences at ISCTE – University Institute of Lisbon, where his research examines how communication can contribute to the prevention of tax non-compliance. His research focuses on how communication shapes social norms around taxation and on the relationship between tax compliance and citizens’ responses to fiscal policy in digital contexts. Since 2023, he has been developing computational approaches for social media analysis, combining R, Python, and advanced content-analytics techniques. His work has appeared in a number of journals including the Online Information Review, Journal of Media Ethics, and Observatorio.<br>He holds an MSc in Management and a BA in Marketing and Communication from Universidade Atlântica, Portugal.</p>
+  </section>
+
+<section id="sobre">
+  <h2>Research</h2>
+  <div class="content">
+    <h3>Publications</h3>
+    <ul class="publications-list">
+      <li>
+        Santos, R. B., Alvares, C., & Carvalho, H. (2026). Public trust and dissatisfaction: Digital platforms and public responses to Portugal's vehicle circulation tax debate. <em>Online Information Review, 50</em>(2), 351–370. https://doi.org/10.1108/OIR-12-2024-0787
+      </li>
+      
+      <li>
+        Bruno Santos, R., Costa, B. F., & Guimarães Oliveira, H. (2025). “The worst is when you peel it and see that there is a worm”: A network semantic analysis of online reactions following Control Portugal’s controversial Instagram post. <em>Journal of Media Ethics</em>. Advance online publication. https://doi.org/10.1080/23736992.2025.2608239
+      </li>
+      
+      <li>
+        Santos, R. B. (2025). [Review of the book <em>Belonging: The science of creating connection and bridging divides</em> (1st ed.), by G. L. Cohen]. <em>Belonging, 1</em>(1-2), 204–206.
+      </li>
+      
+      <li>
+        Santos, R. B. (2024). De recetores passivos a cidadãos participativos: A comunicação governamental na era digital [From passive receivers to participatory citizens: Governmental communication in the digital era]. In <em>Proceedings of the 11ª Conferência Ibero-Americana Computação Aplicada and 21ª Conferência Ibero-Americana</em>. https://doi.org/10.33965/CIACA_CIAWI2024_202410R004
+      </li>
+      
+      <li>
+        Santos, R., & Álvares, C. (2024). The taxpayer netizen: Understanding fiscal citizenship in the digital era. <em>Observatorio (OBS*), 18</em>(4). https://doi.org/10.15847/obsOBS18420242553
+      </li>
+      
+      <li>
+        Santos, R. B. (2023). A bibliometric analysis between communication and tax compliance. <em>International Journal of Research and Innovation in Social Science, 7</em>(6). https://doi.org/10.47772/IJRISS.2023.7625
+      </li>
+    </ul>
+
+    <!-- Nota opcional no rodapé da lista -->
+    <p style="margin-top: 2.5rem; font-style: italic; color: #555; font-size: 1.1rem; text-align: center;">    </p>
+  </div>
+</section>
+
+    <section id="projetos">
+      <h2>Code & Projects</h2>
+      <div class="content">
+        <p style="font-size: 1.25rem; margin-bottom: 2.5rem; text-align: center; color: #444;">
+          In my spare time, I enjoy building Python scripts. Some of them are useful, some of them are more specific to research projects.
+        </p>
+    
+        <div class="project-list">
+          <div class="project-item">
+            <h3>TheGuardian-script-for-researchers <span class="version">Version 1.0</span></h3>
+            <p>This project enables the extraction of articles from The Guardian newspaper using the API provided by the newspaper, and saves them into a PDF file.</p>
+            <p><strong>DOI / Repository:</strong> <a href="https://doi.org/10.5281/zenodo.14505940" target="_blank" rel="noopener noreferrer">https://doi.org/10.5281/zenodo.14505940</a></p>
+          </div>
+    
+          <div class="project-item">
+            <h3>Reddit-extract-comment <span class="version">Version 1.0</span></h3>
+            <p>This project enables the extraction of comments from Reddit platform using the API provided by them, and saves them into a CSV file.</p>
+            <p><strong>DOI / Repository:</strong> <a href="https://doi.org/10.5281/zenodo.14505944" target="_blank" rel="noopener noreferrer">https://doi.org/10.5281/zenodo.14505944</a></p>
+          </div>
+        </div>
+    
+        <!-- Nota opcional no final -->
+        <p style="margin-top: 3rem; font-style: italic; color: #666; text-align: center; font-size: 1.1rem;">
+          All projects are open-source and available on Zenodo. Please cite if it is useful for you.
+        </p>
+      </div>
+    </section>
+
+<section id="contato">
+  <h2>Contact</h2>
+  <div class="content" style="text-align: center; max-width: 600px; margin: 0 auto; padding: 2rem 0;">
+    
+    <p style="margin: 1.8rem 0; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 12px;">
+      <i class="fas fa-envelope" style="font-size: 1.4rem; color: #333;"></i>
+      <strong>Email:</strong> 
+      <a href="mailto:rui.bruno.santos@iscte-iul.pt">rui.bruno.santos@iscte-iul.pt</a>
+    </p>
+    
+    <p style="margin: 1.8rem 0; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 12px;">
+      <i class="fab fa-orcid" style="font-size: 1.4rem; color: #a6ce39;"></i> <!-- Ícone oficial ORCID -->
+      <strong>ORCID:</strong> 
+      <a href="https://orcid.org/0009-0007-2211-7268" target="_blank" rel="noopener noreferrer">0009-0007-2211-7268</a> 
+    </p>
+    
+    <p style="margin: 1.8rem 0; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 12px;">
+      <i class="fas fa-graduation-cap" style="font-size: 1.4rem; color: #333;"></i> 
+      <strong>Web of Science ResearcherID:</strong> 
+      <a href="https://www.webofscience.com/wos/author/record/HZI-8783-2023" target="_blank" rel="noopener noreferrer">HZI-8783-2023</a>
+    </p>
+    
+    <p style="margin: 1.8rem 0; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 12px;">
+      <i class="fab fa-github" style="font-size: 1.4rem; color: #333;"></i>
+      <strong>GitHub:</strong> 
+      <a href="https://github.com/RuiBrunoSantos" target="_blank" rel="noopener noreferrer">github.com/RuiBrunoSantos</a>
+    </p>
+
+    <!-- <p style="margin-top: 3rem;">
+      <a href="cv-rui-bruno-santos.pdf" download 
+         style="background: #0066cc; color: white; padding: 0.9rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-block;">
+         Download Full CV (PDF)#
+      </a> Botão opcional para CV -->
+    </p>
+  </div>
+</section>
+
+  <footer>
+    © 2026 Rui Bruno Santos — All rights reserved
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    sections.forEach(section => observer.observe(section));
+  </script>
+
+</body>
+</html>
