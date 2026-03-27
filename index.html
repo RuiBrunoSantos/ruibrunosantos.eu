@@ -358,24 +358,7 @@ footer {
 
     <section id="projetos">
       <h2>Code</h2>
-      <div class="content">
-        <p style="font-size: 1.25rem; margin-bottom: 2.5rem; text-align: center; color: #444;">
-          In my spare time, I enjoy building Python scripts. Some of them are useful, some of them are more specific to research projects.
-        </p>
-    
-        <div class="project-list">
-          <div class="project-item">
-            <h3>TheGuardian-script-for-researchers <span class="version">Version 1.0</span></h3>
-            <p>This project enables the extraction of articles from The Guardian newspaper using the API provided by the newspaper, and saves them into a PDF file.</p>
-            <p><strong>DOI / Repository:</strong> <a href="https://doi.org/10.5281/zenodo.14505940" target="_blank" rel="noopener noreferrer">https://doi.org/10.5281/zenodo.14505940</a></p>
-          </div>
-    
-          <div class="project-item">
-            <h3>Reddit-extract-comment <span class="version">Version 1.0</span></h3>
-            <p>This project enables the extraction of comments from Reddit platform using the API provided by them, and saves them into a CSV file.</p>
-            <p><strong>DOI / Repository:</strong> <a href="https://doi.org/10.5281/zenodo.14505944" target="_blank" rel="noopener noreferrer">https://doi.org/10.5281/zenodo.14505944</a></p>
-          </div>
-        </div>
+      <div id="project-list" class="project-list"></div>
     
         <!-- Nota opcional no final -->
         <p style="margin-top: 3rem; font-style: italic; color: #666; text-align: center; font-size: 1.1rem;">
@@ -437,9 +420,11 @@ footer {
     sections.forEach(section => observer.observe(section));
 
 	document.addEventListener('DOMContentLoaded', () => {
+
+	  // ==================== PUBLICAÇÕES ====================
 	  fetch('publications.txt')
 		.then(response => {
-		  if (!response.ok) throw new Error('Ficheiro publications.txt não encontrado');
+		  if (!response.ok) throw new Error('publications.txt não encontrado');
 		  return response.text();
 		})
 		.then(text => {
@@ -461,12 +446,40 @@ footer {
 			ul.appendChild(li);
 		  });
 		})
-		.catch(error => {
-		  console.error('Erro ao carregar publicações:', error);
-		  document.getElementById('publications-list').innerHTML = 
-			'<li style="color:#cc0000;">Erro ao carregar as publicações. Verifique se o ficheiro publications.txt existe.</li>';
-		});
+		.catch(err => console.error('Erro publicações:', err));
+
+	  // ==================== PROJETOS ====================
+	  fetch('projects.txt')
+		.then(response => {
+		  if (!response.ok) throw new Error('projects.txt não encontrado');
+		  return response.text();
+		})
+		.then(text => {
+		  const lines = text.trim().split('\n').filter(line => line.trim() !== '');
+		  const container = document.getElementById('project-list');
+		  container.innerHTML = '';
+
+		  lines.forEach(line => {
+			const [title, version, description, url] = line.split('|').map(s => s.trim());
+			if (!title) return;
+
+			const item = document.createElement('div');
+			item.className = 'project-item';
+
+			item.innerHTML = `
+			  <h3>${title} <span class="version">${version || 'Version 1.0'}</span></h3>
+			  <p>${description}</p>
+			  <p><strong>DOI / Repository:</strong> 
+				<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>
+			  </p>
+			`;
+
+			container.appendChild(item);
+		  });
+		})
+		.catch(err => console.error('Erro projetos:', err));
 	});
+</script>
 </script>
 </body>
 </html>
