@@ -1,3 +1,2 @@
 TheGuardian-script-for-researchers|Version 1.0|This project enables the extraction of articles from The Guardian newspaper using the API provided by the newspaper, and saves them into a PDF file.|https://doi.org/10.5281/zenodo.14505940
 Reddit-extract-comment|Version 1.0|This project enables the extraction of comments from Reddit platform using the API provided by them, and saves them into a CSV file.|https://doi.org/10.5281/zenodo.14505944
-Tww-extract-comment|Version 2.0|This project enables the extraction of comments from Reddit platform using the API provided by them, and saves them into a CSV file.|https://doi.org/10.5281/zenodo.14505944
