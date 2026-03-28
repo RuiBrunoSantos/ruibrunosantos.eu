@@ -423,13 +423,15 @@ footer {
 	document.addEventListener('DOMContentLoaded', () => {
 
 	  // ==================== PUBLICAÇÕES ====================
-	  fetch('publications.txt')
+	  console.log('🔄 A carregar publications.txt...');
+	  fetch('publications.txt?' + Date.now())
 		.then(response => {
 		  if (!response.ok) throw new Error('publications.txt não encontrado');
 		  return response.text();
 		})
 		.then(text => {
 		  const lines = text.trim().split('\n').filter(line => line.trim() !== '');
+		  console.log(`✅ Publicações carregadas: ${lines.length} itens`);
 		  const ul = document.getElementById('publications-list');
 		  ul.innerHTML = '';
 
@@ -439,24 +441,24 @@ footer {
 
 			const li = document.createElement('li');
 			li.innerHTML = citation;
-
 			if (url) {
 			  li.innerHTML += ` <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
 			}
-
 			ul.appendChild(li);
 		  });
 		})
 		.catch(err => console.error('Erro publicações:', err));
 
 	  // ==================== PROJETOS ====================
-	  fetch('projects.txt')
+	  console.log('🔄 A carregar projects.txt...');
+	  fetch('projects.txt?' + Date.now())
 		.then(response => {
 		  if (!response.ok) throw new Error('projects.txt não encontrado');
 		  return response.text();
 		})
 		.then(text => {
 		  const lines = text.trim().split('\n').filter(line => line.trim() !== '');
+		  console.log(`✅ Projetos carregados: ${lines.length} itens`);
 		  const container = document.getElementById('project-list');
 		  container.innerHTML = '';
 
@@ -466,7 +468,6 @@ footer {
 
 			const item = document.createElement('div');
 			item.className = 'project-item';
-
 			item.innerHTML = `
 			  <h3>${title} <span class="version">${version || 'Version 1.0'}</span></h3>
 			  <p>${description}</p>
@@ -474,13 +475,11 @@ footer {
 				<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>
 			  </p>
 			`;
-
 			container.appendChild(item);
 		  });
 		})
 		.catch(err => console.error('Erro projetos:', err));
 	});
-</script>
-</script>
+	</script>
 </body>
 </html>
